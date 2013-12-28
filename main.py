@@ -15,10 +15,13 @@ from model import connection, alljoined
 
 ### data structures
 
+def pretty(word):
+    return word.replace('_', ' ')
+
 class Attribute():
     def __init__(self, dbname, values):
         self.dbname = dbname
-        self.pretty = self.dbname.replace('_', ' ')
+        self.pretty = pretty(dbname)
         self.values = values
 
     def check_values(self, request):
@@ -33,7 +36,7 @@ class Attribute():
 class Value():
     def __init__(self, dbname, checked = ''):
         self.dbname = dbname
-        self.pretty = self.dbname.replace('_', ' ')
+        self.pretty = pretty(dbname)
         self.checked = checked
 
 
@@ -66,7 +69,8 @@ class MainHandler(RequestHandler):
         for attribute in attributes:
             attribute.check_values(self.request.get_all(attribute.dbname))
         data = self.get_data(attributes)
-        home_vars = {'attributes': attributes, 'rows': data}
+        cols = [pretty(col.name) for col in alljoined.c]
+        home_vars = {'attributes': attributes, 'rows': data, 'cols': cols}
         homepage = env.get_template('home.html').render(home_vars)
         self.response.write(homepage)
 
