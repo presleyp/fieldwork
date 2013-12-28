@@ -1,13 +1,31 @@
 import sqlalchemy as sa
 
 
-engine = sa.create_engine('mysql://fieldwork:7d3zXWhi#hdI@localhost')
+engine = sa.create_engine('mysql://fieldwork:7d3zXWhi#hdI@localhost/FieldWork')
 connection = engine.connect()
 
 metadata = sa.MetaData()
-metadata.reflect(bind = engine, schema = 'FieldWork')
+alljoined = sa.Table('alljoined', metadata,
+                     sa.Column('Analysis', sa.Text),
+                     sa.Column('Type', sa.Text),
+                     sa.Column('Recording', sa.Text),
+                     sa.Column('Transcription', sa.Text),
+                     sa.Column('Gloss', sa.Text),
+                     sa.Column('Target_Tone', sa.VARCHAR(50)),
+                     sa.Column('First_Syllable_Tone', sa.VARCHAR(2)),
+                     sa.Column('Second_Syllable_Tone', sa.VARCHAR(2)),
+                     sa.Column('Frame', sa.CHAR(3)),
+                     sa.Column('Left_Frame', sa.CHAR(1)),
+                     sa.Column('Right_Frame', sa.CHAR(1)),
+                     sa.Column('Number_of_Syllables', sa.INT()),
+                     sa.Column('Speaker_Name', sa.Text),
+                     sa.Column('Speaker_Age', sa.Text),
+                     sa.Column('Speaker_Gender', sa.CHAR(1))
+                     )
 
-inspector = sa.engine.reflection.Inspector.from_engine(engine)
+#metadata.reflect(bind = engine, schema = 'FieldWork')
+
+#inspector = sa.engine.reflection.Inspector.from_engine(engine)
 
 #from_clause = metadata.tables['FieldWork.AnalysisType'].join(
               #metadata.tables['FieldWork.Analysis']).join(

@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link rel='stylesheet' href='/static/stylesheet.css' type='text/css' />
 <title> UMass Prosody Fieldwork </title>
 </head>
 <body>
@@ -18,8 +17,8 @@
         {% for value in attribute.values %}
         <label>
             <input type="checkbox"
-                   name="{{ attribute.nospaces }}"
-                   value="{{ value.nospaces }}"
+                   name="{{ attribute.dbname }}"
+                   value="{{ value.dbname }}"
                    {{ value.checked }} >
             </input>
             {{ value.pretty }}
@@ -32,6 +31,13 @@
 </form>
 
 <table>
+    <tr>
+        {% for col in cols %}
+        <td>
+            <b>{{ col }}</b>
+        </td>
+        {% endfor %}
+    </tr>
     {% for row in rows %}
     <tr>
         {% for cell in row %}
