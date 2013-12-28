@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel='stylesheet' href='/static/stylesheet.css' type='text/css' />
+<title> UMass Prosody Fieldwork </title>
+</head>
+<body>
+
+<h1>UMass Linguistics Database of Fieldwork on Prosody</h1>
+
+<a href="/about">About</a>
+
+<form>
+    {% for attribute in attributes %}
+    <p>
+        {{ attribute.pretty }}:
+        <br>
+        {% for value in attribute.values %}
+        <label>
+            <input type="checkbox"
+                   name="{{ attribute.nospaces }}"
+                   value="{{ value.nospaces }}"
+                   {{ value.checked }} >
+            </input>
+            {{ value.pretty }}
+        </label>
+        {% endfor %}
+    </p>
+    {% endfor %}
+
+    <input type="submit" value="Filter"></input>
+</form>
+
+<table>
+    {% for row in rows %}
+    <tr>
+        {% for cell in row %}
+        <td>
+            {{ cell }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+
+
