@@ -1,7 +1,9 @@
 import sqlalchemy as sa
+from os import environ
 
+db = environ['FIELDWORKDB']
 
-engine = sa.create_engine('mysql://fieldwork:7d3zXWhi#hdI@localhost/FieldWork')
+engine = sa.create_engine(db)
 connection = engine.connect()
 
 metadata = sa.MetaData()
